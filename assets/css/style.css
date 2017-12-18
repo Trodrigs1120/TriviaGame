@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'WebFont';
+    src: url('diogenes.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+  }  
+body {
+    background-image: url("../images/europa.jpg");
+}
+.jumbotron {
+ background-image: url("../images/jumbotron.png");
+ font-family: WebFont;
+ color: white;
+
+ text-shadow: -2px 0 grey, 0 2px grey, 2px 0 grey, 0 -2px grey;
+}
+#buttons {
+            /* Positioning */
+           /* margin: 50px 0; 
+            /* Typography */
+            text-align: center;
+            position: relative;
+            float: center;
+            background: grey;
+          }
+          button {
+            
+                    /* Box-model */
+                    width: 300px;
+                    height: 100px;
+            
+                  }
+.panel {
+    background: grey;
+    
+}
+p{
+    text-align: center;
+}
