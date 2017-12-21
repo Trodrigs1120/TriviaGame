@@ -24,7 +24,8 @@ function Intialize(){
     $("#start").addClass("ZoomOffScreen");
 }
 function NextQuestion() {
-        RemainingTime=999;
+    
+        RemainingTime=30;
         PostQuestion=0;
         console.log(RoundCounter)
         if (RoundCounter===8){
@@ -32,15 +33,9 @@ function NextQuestion() {
                 
              } else {
                 run();
-                //$("#buttons").empty();
                 $("#QuestionTitle").text(QuestionTitle[RoundCounter]);
                 for (var i=0; i<4; i++){
-                   // $("#QuestionAnswers").append(QuestionAnswers[RoundCounter][i]+" ");
-                
                 $("#p"+i).attr("answervalue",(QuestionAnswers[RoundCounter][i]));
-                
-                  //  $("#p"+i).append(QuestionAnswers[RoundCounter][i]);
-                //   $("#QuestionAnswers").append(AnswerValue);
                    $("#p"+i).text(QuestionAnswers[RoundCounter][i])  
                 };   
              }    
@@ -73,6 +68,7 @@ function TimesUp(){
 function ForceAnswer(){
     if (PostQuestion===1){
         NextQuestion(); 
+        $(".AnswersOutput").empty();
     } else{
         TimesUp();
         RemainingTime=5;
@@ -86,22 +82,21 @@ $(".Answers").on("click",function(){
     AnswerPicked = ($(this).attr("answervalue"));
     if (AnswerPicked === QuestionCorrectAnswer[RoundCounter]){
     RightAnswers++;
+    $(".AnswersOutput").text("You gussed correctly!"); 
     } else {
+        $(".AnswersOutput").text("You gussed incorrectly:( ");
     WrongAnswers++;
     if (PostQuestion===1){
+         
         WrongAnswers--;
      };
     
     }
     stop();
     ForceAnswer();
-  //  PlayerTotals();
 });
 
-// function PlayerTotals(){
- //   $(".AnswersOutput").text("Correct Answers: "+ RightAnswers+ " Incorrect Answers: "+ WrongAnswers); 
-    
-// };
+$
 function EndGame(){
     stop();
     $("#QuestionTitle").empty();
@@ -111,22 +106,6 @@ function EndGame(){
     for (var i=0; i<4;i++){
         $("#p"+i).empty();  
       }
-    //  var MakeMeAButton = $("<button>");
-    //  MakeMeAButton.addClass("start");
-    //  $("#buttons").append(MakeMeAButton);
-      
       $("#start").html("<h2> Try again?</h2>");
-  //    $(".AnswersOutput").empty();
-       console.log("this ran")
+       console.log("this ran");
 };
-
-//   AnswerValue = $("<p>");
-                //   AnswerValue.addClass("p"+i);
-                //   AnswerValue.addClass("Answers");
-                //   AnswerValue.attr("answervalue",(QuestionAnswers[RoundCounter][i])); 
-
-                // potential workaround for the button not working.
-                // add a class that moves it 9000 px to the right so the button doesn't exist
-                // remove the class when the program finishes running
-                //.removeClass()
-                // $("#results").empty().append(myHtml); so empty then append?
