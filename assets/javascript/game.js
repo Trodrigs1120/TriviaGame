@@ -1,55 +1,57 @@
 // change some scope
-var QuestionTitle=["What which of the following was a name for modern day Portugal?", "Where is the ancient prophetic oracle site of Delphii?", "In Roman mythology Mars was the diety of what?"];
+var QuestionTitle=["What which of the following was a name for modern day Portugal?", "Where is the ancient prophetic oracle site of Delphii?", "In Roman mythology Mars was the diety of what?", "Where did Alexander the Great die?", "Who did Julius Caesar defeat at the battle of Alesia?","The ancient port city of Carthage was located in what modern day country?","Which of the following leaders was not apart of the second Roman Triumvirate that split the empire?", "What was the state religion of the Sasanian Empire"];
 var QuestionAnswers=[
-    ["Lusitiana" , "Gallia", "Numidia","Latium"],["Italy","Spain","Egypt","Greece"],["Love","War","Wisdom","The Sky"]
+    ["Lusitania" , "Gallia", "Numidia","Latium"],["Italy","Spain","Egypt","Greece"],["Love","War","Wisdom","The Sky"],["Greece", "Babylon","India",
+"Athens"],["Brutus","Vercingetorix","Boudicca","Herman The German"],["Algeria","Libya","Tunisia","Morocco"],["Lepidus", 
+"Marc Anthony","Augustus Caeser","Aurelian"],["Zoroastrianism","Buddhism","Islam","Christianity"]
 ];
 
 
-var QuestionCorrectAnswer=["Lusitania","Greece","War"];
-var RightAnswers;
-var WrongAnswers;
+var QuestionCorrectAnswer=["Lusitania","Greece","War","Babylon","Vercingetorix","Tunisia","Aurelian","Zoroastrianism"];
+var RightAnswers=0;
+var WrongAnswers=0;
 var RemainingTime;
-var RoundCounter;
+var RoundCounter=0;
 var PostQuestion;
 var AnswerPicked;
+var AnswerValue;
 //console.log(QuestionAnswers[0][0]);
 $("#start").click(Intialize);
 
 function Intialize(){
     RoundCounter=0;
     NextQuestion();
+    $("#start").addClass("ZoomOffScreen");
 }
 function NextQuestion() {
         RemainingTime=999;
         PostQuestion=0;
-        
-    run();
-    $("#buttons").empty();
-    $("#QuestionTitle").text(QuestionTitle[RoundCounter]);
-    for (var i=0; i<4; i++){
-       // $("#QuestionAnswers").append(QuestionAnswers[RoundCounter][i]+" ");
-      // $() 
-       $(".p"+i).append(QuestionAnswers[RoundCounter][i]+" ");
-        
-        
-    }
-    // add in onclick stuff
-    // we'll take the answer assign to to a variable and check it against the array variable
-    // could do a for loop for the entire array honestly
-    
-    }
-    function decrement() {
-    
-              RemainingTime--;
+        console.log(RoundCounter)
+        if (RoundCounter===8){
+            EndGame();
+                
+             } else {
+                run();
+                //$("#buttons").empty();
+                $("#QuestionTitle").text(QuestionTitle[RoundCounter]);
+                for (var i=0; i<4; i++){
+                   // $("#QuestionAnswers").append(QuestionAnswers[RoundCounter][i]+" ");
+                
+                $("#p"+i).attr("answervalue",(QuestionAnswers[RoundCounter][i]));
+                
+                  //  $("#p"+i).append(QuestionAnswers[RoundCounter][i]);
+                //   $("#QuestionAnswers").append(AnswerValue);
+                   $("#p"+i).text(QuestionAnswers[RoundCounter][i])  
+                };   
+             }    
+  
+    };
 
+function decrement() {
+              RemainingTime--;
               $("#Timer").html("<h2>" + RemainingTime + "</h2>");
-        
-              //  Once number hits zero...
               if (RemainingTime === 0) {
-        
-                //  ...run the stop function.
                 stop();
-            
                 ForceAnswer();
               }
             }
@@ -58,18 +60,16 @@ function run() {
               }            
 function stop() {
     clearInterval(intervalId);
- }
-
+ };
 function TimesUp(){
     $("#QuestionTitle").text("");  
     $("#QuestionAnswers").text("");
+    for (var i=0; i<4;i++){
+      $("#p"+i).empty();  
+    }
     $("#QuestionTitle").text("The correct answer is: " + QuestionCorrectAnswer[RoundCounter]+"!");
     
-//    intervalId = setInterval(decrement, 1000);
-//   if (RemainingTime === 0) {
-//            NextQuestion(); 
-//                  }
-}
+};
 function ForceAnswer(){
     if (PostQuestion===1){
         NextQuestion(); 
@@ -79,38 +79,54 @@ function ForceAnswer(){
         PostQuestion=1;
         intervalId = setInterval(decrement, 1000);
         RoundCounter++;
+        
     }
 }
-
-//$("#QuestionAnswers").on("click",function(){
-    $(".Answers").on("click",function(){
-    PickAnAnswer()
-   // if (AnswerPicked === QuestionCorrectAnswer[RoundCounter]){
-   // RightAnswers++;
-   // } else {
-   // WrongAnswers++;
-   // }
-});
-function PickAnAnswer(){
-    //var AnswerPicked = ($('.p0').text());
-    //console.log(AnswerPicked);
-}
-switch ($.attr('class')) {
-    // in case the the class of the element is only menu-intro
-    case 'p0':
-    AnswerPicked = ($('.p0').text());
-    console.log(AnswerPicked);
-      break;
-    case 'p1':
-    AnswerPicked = ($('.p1').text());
-    console.log(AnswerPicked);
-    case 'p2':
-    AnswerPicked = ($('.p2').text());
-    console.log(AnswerPicked);
-      break;
+$(".Answers").on("click",function(){
+    AnswerPicked = ($(this).attr("answervalue"));
+    if (AnswerPicked === QuestionCorrectAnswer[RoundCounter]){
+    RightAnswers++;
+    } else {
+    WrongAnswers++;
+    if (PostQuestion===1){
+        WrongAnswers--;
+     };
     
-    case 'p3':
-    AnswerPicked = ($('.p3').text());
-    console.log(AnswerPicked);
-      break;
-  }
+    }
+    stop();
+    ForceAnswer();
+  //  PlayerTotals();
+});
+
+// function PlayerTotals(){
+ //   $(".AnswersOutput").text("Correct Answers: "+ RightAnswers+ " Incorrect Answers: "+ WrongAnswers); 
+    
+// };
+function EndGame(){
+    stop();
+    $("#QuestionTitle").empty();
+    $("#Timer").empty();
+    $("#QuestionTitle").append("You got "+RightAnswers+ "/"+ RoundCounter +" questions correct.")
+    $("#start").removeClass("ZoomOffScreen");
+    for (var i=0; i<4;i++){
+        $("#p"+i).empty();  
+      }
+    //  var MakeMeAButton = $("<button>");
+    //  MakeMeAButton.addClass("start");
+    //  $("#buttons").append(MakeMeAButton);
+      
+      $("#start").html("<h2> Try again?</h2>");
+  //    $(".AnswersOutput").empty();
+       console.log("this ran")
+};
+
+//   AnswerValue = $("<p>");
+                //   AnswerValue.addClass("p"+i);
+                //   AnswerValue.addClass("Answers");
+                //   AnswerValue.attr("answervalue",(QuestionAnswers[RoundCounter][i])); 
+
+                // potential workaround for the button not working.
+                // add a class that moves it 9000 px to the right so the button doesn't exist
+                // remove the class when the program finishes running
+                //.removeClass()
+                // $("#results").empty().append(myHtml); so empty then append?

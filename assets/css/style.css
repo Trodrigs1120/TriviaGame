@@ -35,3 +35,15 @@ body {
 p{
     text-align: center;
 }
+#p0, #p1, #p2, #p3 {
+    background: grey;
+    padding: 10px 0 10px 0;
+    
+   }
+.AnswersOutput{
+    text-align: center;
+}   
+.ZoomOffScreen{
+    left:9000px;
+    position: relative;
+}
