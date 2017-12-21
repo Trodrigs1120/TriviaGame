@@ -13,15 +13,17 @@ var RoundCounter=0;
 var PostQuestion;
 var AnswerPicked;
 var AnswerValue;
+var intialized;
 $("#start").click(Intialize);
 
 function Intialize(){
+    intialized=1;
     RoundCounter=0;
     NextQuestion();
     $("#start").addClass("ZoomOffScreen");
 }
 function NextQuestion() {
-    
+    if (intialized===1){
         RemainingTime=30;
         PostQuestion=0;
         console.log(RoundCounter)
@@ -36,13 +38,34 @@ function NextQuestion() {
                 $("#p"+i).attr("answervalue",(QuestionAnswers[RoundCounter][i]));
                    $("#p"+i).text(QuestionAnswers[RoundCounter][i])  
                 };   
-             }    
-  
+             } 
+    }
     };
+
+    $(".Answers").on("click",function(){
+        console.log(intialized);
+        if (intialized===1){
+        AnswerPicked = ($(this).attr("answervalue"));
+        if (AnswerPicked === QuestionCorrectAnswer[RoundCounter]){
+        RightAnswers++;
+        $(".AnswersOutput").text("You gussed correctly!"); 
+        } else {
+            $(".AnswersOutput").text("You gussed incorrectly:( ");
+        WrongAnswers++;
+        if (PostQuestion===1){
+             
+            WrongAnswers--;
+         };
+        
+        }
+        stop();
+        ForceAnswer();
+    }
+    });    
 
 function decrement() {
               RemainingTime--;
-              $("#Timer").html("<h2>" + RemainingTime + "</h2>");
+              $("#Timer").html("<h2>"+"You have " + RemainingTime +" seconds remaining"+"</h2>");
               if (RemainingTime === 0) {
                 stop();
                 ForceAnswer();
@@ -76,25 +99,9 @@ function ForceAnswer(){
         
     }
 }
-$(".Answers").on("click",function(){
-    AnswerPicked = ($(this).attr("answervalue"));
-    if (AnswerPicked === QuestionCorrectAnswer[RoundCounter]){
-    RightAnswers++;
-    $(".AnswersOutput").text("You gussed correctly!"); 
-    } else {
-        $(".AnswersOutput").text("You gussed incorrectly:( ");
-    WrongAnswers++;
-    if (PostQuestion===1){
-         
-        WrongAnswers--;
-     };
-    
-    }
-    stop();
-    ForceAnswer();
-});
 
-$
+
+
 function EndGame(){
     stop();
     // $("#QuestionTitle").empty();
