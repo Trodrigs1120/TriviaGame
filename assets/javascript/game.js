@@ -1,12 +1,8 @@
-// change some scope
-var QuestionTitle=["What which of the following was a name for modern day Portugal?", "Where is the ancient prophetic oracle site of Delphii?", "In Roman mythology Mars was the diety of what?", "Where did Alexander the Great die?", "Who did Julius Caesar defeat at the battle of Alesia?","The ancient port city of Carthage was located in what modern day country?","Which of the following leaders was not apart of the second Roman Triumvirate that split the empire?", "What was the state religion of the Sasanian Empire"];
 var QuestionAnswers=[
     ["Lusitania" , "Gallia", "Numidia","Latium"],["Italy","Spain","Egypt","Greece"],["Love","War","Wisdom","The Sky"],["Greece", "Babylon","India",
 "Athens"],["Brutus","Vercingetorix","Boudicca","Herman The German"],["Algeria","Libya","Tunisia","Morocco"],["Lepidus", 
 "Marc Anthony","Augustus Caeser","Aurelian"],["Zoroastrianism","Buddhism","Islam","Christianity"]
 ];
-
-
 var QuestionCorrectAnswer=["Lusitania","Greece","War","Babylon","Vercingetorix","Tunisia","Aurelian","Zoroastrianism"];
 var RightAnswers=0;
 var WrongAnswers=0;
@@ -15,7 +11,6 @@ var RoundCounter=0;
 var PostQuestion;
 var AnswerPicked;
 var AnswerValue;
-//console.log(QuestionAnswers[0][0]);
 $("#start").click(Intialize);
 
 function Intialize(){
